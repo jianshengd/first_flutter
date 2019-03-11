@@ -28,7 +28,7 @@ class FrameState extends State<MyFramework> {
           )
         ],
       ),
-      body: LongList(),
+      body: MyGridList(),
     );
   }
 }
