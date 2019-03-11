@@ -1,6 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+
+class DismissButton extends StatelessWidget{
+  var items = ['李磊','小明','小黄','李磊2','小明2','小黄2','李磊3','小明3','小黄3','李磊4','小明4','小黄4','李磊5','小明5','小黄5','李磊6','小明6','小黄6'];
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context,index){
+        return Dismissible(
+          //滑动方向
+          direction: DismissDirection.endToStart,
+          key: new Key(items[index]),
+          child: ListTile(title: Text(items[index])),
+          //滑动颜色
+          background: Container(color: Colors.red),
+          onDismissed:(direction){
+            //移除
+            items.removeAt(index);
+            Scaffold.of(context).showSnackBar(
+                new SnackBar(content: new Text("${items[index]} dismissed")));
+          },
+        );
+    });
+  }
+
+}
+/**
+ * 水波纹按钮
+ */
+class InkButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new InkWell(
+      onTap: () {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text('Tap'),
+        ));
+      },
+      child: new Container(
+        padding: new EdgeInsets.all(12.0),
+        child: new Text('Flat Button'),
+      ),
+    );
+  }
+}
+
 class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
