@@ -2,33 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
-class DismissButton extends StatelessWidget{
+class DismissButton extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return DismissState();
+  }
+
+}
+
+class DismissState extends State<DismissButton>{
   var items = ['李磊','小明','小黄','李磊2','小明2','小黄2','李磊3','小明3','小黄3','李磊4','小明4','小黄4','李磊5','小明5','小黄5','李磊6','小明6','小黄6'];
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context,index){
-        return Dismissible(
-          //滑动方向
-          direction: DismissDirection.endToStart,
-          key: new Key(items[index]),
-          child: ListTile(title: Text(items[index])),
-          //滑动颜色
-          background: Container(color: Colors.red),
-          onDismissed:(direction){
-            //移除
-            items.removeAt(index);
-            Scaffold.of(context).showSnackBar(
-                new SnackBar(content: new Text("${items[index]} dismissed")));
-          },
-        );
-    });
+          return Dismissible(
+            //滑动方向
+            direction: DismissDirection.endToStart,
+            key: new Key(items[index]),
+            child: ListTile(title: Text(items[index])),
+            //滑动颜色
+            background: Container(color: Colors.red),
+            onDismissed:(direction){
+              setState(() {
+                //移除
+                items.removeAt(index);
+                Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text("${items[index]} dismissed,剩余${items.length}")));
+              });
+            },
+          );
+        });
   }
 
 }
+
 /**
  * 水波纹按钮
  */
